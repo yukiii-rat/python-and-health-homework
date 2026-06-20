@@ -1,0 +1,58 @@
+======================================================================
+  3'UTR XGBoost Regression -- Hyperparameter Tuning Results
+======================================================================
+  N=9442, features=61
+
+  RandomizedSearchCV: 100 combos, 5-fold CV
+  Best CV R2 = 0.2217
+
+  Best hyperparameters:
+    subsample = 0.8
+    reg_lambda = 2
+    reg_alpha = 0.1
+    n_estimators = 1500
+    max_depth = 10
+    learning_rate = 0.02
+    colsample_bytree = 0.4
+
+  Test set evaluation (20% holdout):
+    MSE  = 0.613565
+    RMSE = 0.783304
+    MAE  = 0.527874
+    R2   = 0.2676
+    R2 improvement vs baseline (0.1736): +0.0940
+
+  Baseline params (utr_split_model):
+    n_estimators=300, max_depth=6, learning_rate=0.05, subsample=0.8
+
+======================================================================
+  SHAP global importance (top 15)
+======================================================================
+    #  Feature                                 mean|SHAP|    SHAP%     r(SHAP,val) 
+  ---  --------------------------------------  ------------  --------  ------------
+    1  spliced_utr_dist                        0.112372      12.69     +0.7099     
+    2  region_relative_pos                     0.094253      10.65     -0.1809     
+    3  alu_full_mfe                            0.079292      8.96      +0.1749     
+    4  sl1_terminal_mfe                        0.068442      7.73      -0.0979     
+    5  ugg_motif_density                       0.068095      7.69      +0.0996     
+    6  alu_gc_content                          0.065994      7.45      +0.2633     
+    7  gc_rich_stem_density                    0.065344      7.38      -0.2250     
+    8  agg_motif_density                       0.061294      6.92      -0.0420     
+    9  overlap_bp                              0.052092      5.88      +0.4609     
+   10  alu_length                              0.044240      5.00      +0.1171     
+   11  rrna_18s_score                          0.027681      3.13      +0.1134     
+   12  subfamily_age                           0.026967      3.05      -0.4812     
+   13  is_antisense                            0.018295      2.07      +0.1680     
+   14  sl1_ugg_count                           0.015441      1.74      -0.2265     
+   15  subfamily_AluJb                         0.011241      1.27      +0.7004     
+
+======================================================================
+  SHAP direction (continuous variables)
+======================================================================
+  gc_rich_stem_density                 r=-0.2250  high_SHAP=-0.021340  low_SHAP=+0.019145  Δ=-0.040485  -> -
+  overlap_bp                           r=+0.4609  high_SHAP=+0.016190  low_SHAP=-0.013503  Δ=+0.029693  -> +
+  sl1_terminal_mfe                     r=-0.0979  high_SHAP=-0.010637  low_SHAP=+0.007331  Δ=-0.017968  -> -
+  spliced_utr_dist                     r=+0.7099  high_SHAP=+0.060082  low_SHAP=-0.068449  Δ=+0.128531  -> +
+  alu_full_mfe                         r=+0.1749  high_SHAP=+0.034470  low_SHAP=-0.034719  Δ=+0.069188  -> +
+  alu_gc_content                       r=+0.2633  high_SHAP=+0.018622  low_SHAP=-0.017408  Δ=+0.036030  -> +
+  rrna_18s_score                       r=+0.1134  high_SHAP=+0.003993  low_SHAP=-0.000988  Δ=+0.004981  -> +

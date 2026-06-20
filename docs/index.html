@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Alu元件在mRNA不同区域对翻译效率的影响 - 机器学习与SHAP分析">
+    <title>Alu · TE Regulation</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-inner">
+            <span class="nav-brand">Alu · TE</span>
+            <div class="nav-links">
+                <a href="#abstract">Abstract</a>
+                <a href="#results">Results</a>
+                <a href="#figures">Figures</a>
+                <a href="#methods">Methods</a>
+                <a href="#code">Code</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <header class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-content">
+            <p class="hero-label">Course Thesis · Peking University</p>
+            <h1 class="hero-title">
+                基于机器学习与 SHAP 探究<br>
+                <span class="text-accent">Alu 元件</span>在 mRNA 不同区域<br>
+                对<span class="text-accent">翻译效率</span>的影响
+            </h1>
+            <p class="hero-subtitle">
+                The Impact of Alu Element Localization on Translational Efficiency:<br>
+                A Machine Learning and SHAP-Based Analysis
+            </p>
+            <div class="hero-meta">
+                <span>高登荣 Gao Dengrong</span>
+                <span class="sep">·</span>
+                <span>School of Pharmaceutical Sciences</span>
+                <span class="sep">·</span>
+                <span>2025</span>
+            </div>
+            <div class="hero-actions">
+                <a href="https://github.com/yukiii-rat/python-and-health-homework" class="btn btn-primary" target="_blank">View on GitHub</a>
+                <a href="#results" class="btn btn-outline">Explore Results</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Abstract -->
+    <section id="abstract" class="section section-light">
+        <div class="container">
+            <h2 class="section-title">Abstract</h2>
+            <div class="abstract-grid">
+                <div class="abstract-card">
+                    <h3>中文摘要</h3>
+                    <p>Alu 元件是人类基因组中丰度最高的转座元件。本研究利用 GENCODE v49、RepeatMasker 和 HEK293T TEDD 翻译效率数据，通过配对统计检验、XGBoost 回归和 SHAP 可解释性分析，系统评估了 Alu 元件在 mRNA 不同区域（5'UTR、CDS、3'UTR）对翻译效率的影响。配对分析（3,362 个基因对）显示 Alu 插入 CDS 抑制翻译（l2fc = −0.295），插入 UTR 促进翻译（l2fc = +0.244 / +0.200）。SHAP 分析揭示精细定位和二级结构稳定性是翻译效率的核心预测因子。</p>
+                </div>
+                <div class="abstract-card">
+                    <h3>English</h3>
+                    <p>Alu elements are the most abundant transposable elements in the human genome. Leveraging GENCODE v49 annotations, RepeatMasker coordinates, and HEK293T TEDD translatome data, we systematically evaluate the position-dependent regulatory effects of Alu elements across mRNA regions using paired statistical tests, XGBoost regression, and SHAP analysis. Paired analysis (3,362 gene pairs) reveals CDS insertion suppresses translation (l2fc = −0.295), while UTR insertions enhance it (l2fc = +0.244 / +0.200). SHAP identifies fine positioning and secondary structure stability as core predictors of TE.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Results Stats -->
+    <section class="section-stats">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <span class="stat-value">11,704</span>
+                    <span class="stat-label">Alu+ Transcript Pairs</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-value">3,362</span>
+                    <span class="stat-label">Paired Genes</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-value">R² 0.27</span>
+                    <span class="stat-label">Best ML Model</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-value">35</span>
+                    <span class="stat-label">Python Scripts</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Results Section -->
+    <section id="results" class="section section-dark">
+        <div class="container">
+            <h2 class="section-title">Key Findings</h2>
+
+            <!-- Finding 1 -->
+            <div class="finding-card">
+                <div class="finding-num">01</div>
+                <div class="finding-content">
+                    <h3>Position-Dependent Regulation</h3>
+                    <p>Alu 元件对翻译效率的影响具有明确的区域依赖性：CDS 插入与翻译抑制相关，而 5'UTR 和 3'UTR 插入则与翻译促进相关。</p>
+                    <div class="finding-table-wrap">
+                        <table class="finding-table">
+                            <thead>
+                                <tr><th>Region</th><th>Pairs</th><th>l2fc</th><th>p-value</th><th>Direction</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>All exonic</td><td>3,362</td><td class="up">+0.162</td><td>4.2 × 10⁻⁶⁷</td><td>Enhance</td></tr>
+                                <tr><td>CDS</td><td>512</td><td class="down">−0.295</td><td>1.0 × 10⁻²⁴</td><td>Suppress</td></tr>
+                                <tr><td>5'UTR</td><td>703</td><td class="up">+0.244</td><td>7.5 × 10⁻⁴⁰</td><td>Enhance</td></tr>
+                                <tr><td>3'UTR</td><td>2,576</td><td class="up">+0.200</td><td>2.1 × 10⁻⁷⁶</td><td>Enhance</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Finding 2 -->
+            <div class="finding-card">
+                <div class="finding-num">02</div>
+                <div class="finding-content">
+                    <h3>Dose-Response Effect</h3>
+                    <p>3'UTR 内 Alu 元件数量从 1 递增至 4 的过程中，翻译促进效应呈单调递增（l2fc: +0.15 → +0.47），支持 Alu 对翻译效率的直接调控作用。</p>
+                </div>
+            </div>
+
+            <!-- Finding 3 -->
+            <div class="finding-card">
+                <div class="finding-num">03</div>
+                <div class="finding-content">
+                    <h3>SHAP Feature Importance</h3>
+                    <p>在全区域和 3'UTR 亚组模型中，Alu 在转录本内的精细定位（spliced_utr_dist, region_relative_pos）和二级结构稳定性（alu_full_mfe）是最重要的预测因子。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Figures Gallery -->
+    <section id="figures" class="section section-light">
+        <div class="container">
+            <h2 class="section-title">Figures</h2>
+            <div class="figures-grid">
+
+                <div class="figure-card">
+                    <a href="assets/img/alu_te_within_gene_v3_2_paired_violin.png" target="_blank">
+                        <img src="assets/img/alu_te_within_gene_v3_2_paired_violin.png" alt="Paired violin plot" loading="lazy">
+                    </a>
+                    <p class="figure-caption">Fig 1. Paired TE comparison: Alu+ vs Alu- transcripts across all regions.</p>
+                </div>
+
+                <div class="figure-card">
+                    <a href="assets/img/alu_te_within_gene_v3_2_alu_in_cds.png" target="_blank">
+                        <img src="assets/img/alu_te_within_gene_v3_2_alu_in_cds.png" alt="CDS paired" loading="lazy">
+                    </a>
+                    <p class="figure-caption">Fig 2. CDS: Alu insertion suppresses TE (l2fc = −0.295).</p>
+                </div>
+
+                <div class="figure-card">
+                    <a href="assets/img/alu_te_within_gene_v3_2_alu_in_utr5.png" target="_blank">
+                        <img src="assets/img/alu_te_within_gene_v3_2_alu_in_utr5.png" alt="5'UTR paired" loading="lazy">
+                    </a>
+                    <p class="figure-caption">Fig 3. 5'UTR: Alu insertion enhances TE (l2fc = +0.244).</p>
+                </div>
+
+                <div class="figure-card">
+                    <a href="assets/img/alu_te_within_gene_v3_2_alu_in_utr3.png" target="_blank">
+                        <img src="assets/img/alu_te_within_gene_v3_2_alu_in_utr3.png" alt="3'UTR paired" loading="lazy">
+                    </a>
+                    <p class="figure-caption">Fig 4. 3'UTR: Alu insertion enhances TE (l2fc = +0.200).</p>
+                </div>
+
+                <div class="figure-card">
+                    <a href="assets/img/shap_bar.png" target="_blank">
+                        <img src="assets/img/shap_bar.png" alt="SHAP bar full region" loading="lazy">
+                    </a>
+                    <p class="figure-caption">Fig 5. SHAP feature importance — full region model.</p>
+                </div>
+
+                <div class="figure-card">
+                    <a href="assets/img/shap_bar_utr3.png" target="_blank">
+                        <img src="assets/img/shap_bar_utr3.png" alt="SHAP bar 3UTR" loading="lazy">
+                    </a>
+                    <p class="figure-caption">Fig 6. SHAP feature importance — 3'UTR model.</p>
+                </div>
+
+                <div class="figure-card">
+                    <a href="assets/img/dep_spliced_utr_dist.png" target="_blank">
+                        <img src="assets/img/dep_spliced_utr_dist.png" alt="SHAP dependence spliced_utr_dist" loading="lazy">
+                    </a>
+                    <p class="figure-caption">Fig 7. SHAP dependence: spliced_utr_dist (top feature).</p>
+                </div>
+
+                <div class="figure-card">
+                    <a href="assets/img/alu_te_within_gene_v4_layout_l2fc_barplot.png" target="_blank">
+                        <img src="assets/img/alu_te_within_gene_v4_layout_l2fc_barplot.png" alt="Layout analysis" loading="lazy">
+                    </a>
+                    <p class="figure-caption">Fig 8. Layout fingerprint analysis: l2fc by Alu configuration.</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Methods -->
+    <section id="methods" class="section section-dark">
+        <div class="container">
+            <h2 class="section-title">Methods</h2>
+            <div class="methods-flow">
+                <div class="method-step">
+                    <div class="step-circle">1</div>
+                    <h4>Data Collection</h4>
+                    <p>GENCODE v49, RepeatMasker Alu (hg38), TEDD #00137 (HEK293T)</p>
+                </div>
+                <div class="method-step">
+                    <div class="step-circle">2</div>
+                    <h4>Feature Extraction</h4>
+                    <p>Position, motif, GC content, RNA secondary structure (MFE via RNAfold)</p>
+                </div>
+                <div class="method-step">
+                    <div class="step-circle">3</div>
+                    <h4>Paired Statistics</h4>
+                    <p>Within-gene Wilcoxon signed-rank test, Benjamini-Hochberg correction</p>
+                </div>
+                <div class="method-step">
+                    <div class="step-circle">4</div>
+                    <h4>Machine Learning</h4>
+                    <p>XGBoost regression, 5-fold CV, RandomizedSearchCV hyperparameter tuning</p>
+                </div>
+                <div class="method-step">
+                    <div class="step-circle">5</div>
+                    <h4>Interpretation</h4>
+                    <p>SHAP TreeExplainer: global importance + dependence plots</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Data Table -->
+    <section class="section section-light">
+        <div class="container">
+            <h2 class="section-title">Data Sources</h2>
+            <div class="data-table-wrap">
+                <table class="data-table">
+                    <thead>
+                        <tr><th>Data</th><th>Source</th><th>Version</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Transcriptome annotation</td><td>GENCODE</td><td>v49 (human)</td></tr>
+                        <tr><td>Alu repeat coordinates</td><td>RepeatMasker</td><td>hg38</td></tr>
+                        <tr><td>Translational efficiency</td><td>TEDD Database</td><td>#00137, HEK293T</td></tr>
+                        <tr><td>Genome sequence</td><td>UCSC</td><td>hg38.2bit</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Code -->
+    <section id="code" class="section section-cta">
+        <div class="container">
+            <h2>Get the Code</h2>
+            <p>All Python scripts, analysis results, and figures are available on GitHub.</p>
+            <a href="https://github.com/yukiii-rat/python-and-health-homework" class="btn btn-primary btn-lg" target="_blank">
+                github.com/yukiii-rat/python-and-health-homework
+            </a>
+        </div>
+    </section>
+
+    <!-- Citation -->
+    <section class="section section-light">
+        <div class="container">
+            <h2 class="section-title">Citation</h2>
+            <pre class="citation-block"><code>@misc{gao2025alu,
+  author = {Gao, Dengrong},
+  title  = {基于机器学习与SHAP探究Alu元件在mRNA不同区域对翻译效率的影响},
+  year   = {2025},
+  school = {Peking University}
+}</code></pre>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>Built with care. &copy; 2025 Gao Dengrong.</p>
+        </div>
+    </footer>
+
+</body>
+</html>

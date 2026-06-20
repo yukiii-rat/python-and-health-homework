@@ -1,0 +1,2 @@
+cv_r2,test_r2,subsample,reg_lambda,reg_alpha,n_estimators,max_depth,learning_rate,colsample_bytree
+0.22173744565873604,0.26760321236080553,0.8,2,0.1,1500,10,0.02,0.4

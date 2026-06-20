@@ -1,0 +1,5 @@
+region,n_paired_genes,n_alu_plus_transcripts,n_alu_minus_transcripts,median_TE_alu_plus,median_TE_alu_minus,abs_diff,pct_change,l2fc,Wilcoxon_W,Wilcoxon_pval,significance
+All exonic,3362,7197,18498,1.5568,1.3915,0.1653,11.88,0.1619,1.85251e+06,4.24179e-67,***
+5'UTR,703,1173,5348,1.5192,1.2827,0.2365,18.44,0.2441,52562,7.48532e-40,***
+CDS,512,683,3917,1.3783,1.6909,-0.3126,-18.49,-0.2949,31281,1.0046e-24,***
+3'UTR,2576,4932,12707,1.5915,1.3857,0.2058,14.85,0.1998,961209,2.12289e-76,***

@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Large genomic data (not included in repo)
+data/
+*.gtf
+*.2bit
+*.bed
+*.fasta
+*.fa
+
+# Large intermediate outputs
+output/*.pkl
+output/*.h5
+
+# IDE
+.idea/
+.vscode/

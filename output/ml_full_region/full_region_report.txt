@@ -1,0 +1,61 @@
+======================================================================
+  Full-region XGBoost Regression Results
+======================================================================
+  N=11704, features=63
+
+  Per-region l2fc:
+    CDS: n=  789, mean=-0.3314, median=-0.2138
+    5'UTR: n= 1473, mean=+0.2870, median=+0.2100
+    3UTR: n= 9442, mean=+0.3145, median=+0.2492
+
+  Hyperparameters (tuned):
+    n_estimators = 1500
+    max_depth = 10
+    learning_rate = 0.02
+    subsample = 0.8
+    colsample_bytree = 0.4
+    reg_lambda = 2
+    reg_alpha = 0.1
+
+  5-fold CV:
+    R2   = 0.2713 +/- 0.0192
+    RMSE = 0.7876 +/- 0.0209
+
+  Test set (20% holdout):
+    MSE  = 0.681621
+    RMSE = 0.825603
+    MAE  = 0.561345
+    R2   = 0.2522
+
+======================================================================
+  SHAP global importance (top 20)
+======================================================================
+    #  Feature                                 mean|SHAP|    SHAP%     r(SHAP,val) 
+  ---  --------------------------------------  ------------  --------  ------------
+    1  spliced_utr_dist                        0.124966      14.20     +0.0000     
+    2  region_relative_pos                     0.085028      9.66      -0.1419     
+    3  alu_full_mfe                            0.067911      7.72      +0.2451     
+    4  overlap_bp                              0.062381      7.09      +0.5362     
+    5  ugg_motif_density                       0.061122      6.95      +0.1423     
+    6  sl1_terminal_mfe                        0.059871      6.80      -0.1060     
+    7  gc_rich_stem_density                    0.058546      6.65      -0.1780     
+    8  agg_motif_density                       0.056799      6.46      -0.0475     
+    9  alu_gc_content                          0.056720      6.45      +0.2291     
+   10  alu_length                              0.038220      4.34      +0.0676     
+   11  subfamily_age                           0.024533      2.79      -0.4673     
+   12  rrna_18s_score                          0.022744      2.58      +0.0401     
+   13  region_inserted_CDS                     0.020914      2.38      -0.9449     
+   14  region_inserted_5'UTR                   0.020236      2.30      +0.8828     
+   15  is_antisense                            0.016427      1.87      +0.0358     
+   16  sl1_ugg_count                           0.013882      1.58      -0.2003     
+   17  region_inserted_3UTR                    0.010298      1.17      -0.6773     
+   18  subfamily_AluJb                         0.009456      1.07      +0.6781     
+   19  subfamily_AluSz                         0.008224      0.93      -0.5848     
+   20  subfamily_AluSq2                        0.007518      0.85      -0.6611     
+
+======================================================================
+  Region dummy SHAP direction
+======================================================================
+  region_inserted_3UTR                 mean_SHAP=+0.000340  (+ -> TE up)
+  region_inserted_5'UTR                mean_SHAP=-0.004187  (- -> TE up)
+  region_inserted_CDS                  mean_SHAP=+0.000272  (+ -> TE up)
